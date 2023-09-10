@@ -22,8 +22,8 @@ const createPost = async (retry = 3) => {
             },
             {
                 'role': 'user',
-                'content': 'Please write a blog post about technology, social, education or business topic in Indonesia. The post should be at least 500 words long and should be written in a conversational tone. Return the post as a JSON object with the title, content (in markdown), and tags with this format: { "title": "My Blog Post", "content": "This is my blog post.", "tags": [] }'
-            }
+                'content': 'Please write a blog post about technology, social, education or business topic. The post should be at least 500 words long and should be written in a conversational tone. Please add a disclaimer section at the end of the post body, telling that this post is fully written by Chat GPT. Return the post as a JSON object with the title, content (in markdown), and tags with this format: { "title": "My Blog Post", "content": "This is my blog post.", "tags": [] }'
+            },
         ]
     })
 
@@ -62,7 +62,7 @@ const createPost = async (retry = 3) => {
         if (response.status !== 200) {
             throw new Error('Error creating post')
         }
-
+        
         await sendTelegramNotification('Post created at ' + new Date().toISOString() + ' with title: ' + data.title)
     } catch (e) {
         await sendTelegramNotification('Error creating post at ' + new Date().toISOString() + '. Error: ' + e.message + '. Retrying...')
