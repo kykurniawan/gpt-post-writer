@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.post('/create-post', authorize, async (req, res) => {
     await createPostQueue.add({})
-    await sendTelegramNotification('Creating post started at ' + new Date().toISOString())
+    sendTelegramNotification('Creating post started at ' + new Date().toISOString())
     res.json({
         message: 'Creating post...'
     })
