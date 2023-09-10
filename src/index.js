@@ -1,9 +1,8 @@
 const dotenv = require('dotenv')
 const express = require('express')
-const process = require('process')
-const { queueScheduler } = require('rxjs')
-const { createPost, sendTelegramNotification } = require('./service')
+const { sendTelegramNotification } = require('./service')
 const { authorize } = require('./middleware')
+const { createPostQueue } = require('./queue')
 
 dotenv.config()
 
@@ -15,13 +14,9 @@ app.get('/', (req, res) => {
     })
 })
 
-app.post('/create-post', authorize, (req, res) => {
-
-    queueScheduler.schedule(() => {
-        createPost()
-    })
-
-    sendTelegramNotification('Creating post started at ' + new Date().toISOString())
+app.post('/create-post', authorize, async (req, res) => {
+    await createPostQueue.add({})
+    await sendTelegramNotification('Creating post started at ' + new Date().toISOString())
     res.json({
         message: 'Creating post...'
     })
