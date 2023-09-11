@@ -18,11 +18,11 @@ const createPost = async (retry = 3) => {
         messages: [
             {
                 'role': 'system',
-                'content': 'You are a blogger who wants to write a blog post about technology topic.'
+                'content': 'You are a blogger who wants to write a blog post about any topic.'
             },
             {
                 'role': 'user',
-                'content': 'Please write a blog post about technology, social, education or business topic. The post should be at least 500 words long and should be written in a conversational tone. Please add a disclaimer section at the end of the post body, telling that this post is fully written by Chat GPT. Return the post as a JSON object with the title, content (in markdown), and tags with this format: { "title": "My Blog Post", "content": "This is my blog post.", "tags": [] }'
+                'content': 'Please write a blog post about any topic. The post should be at least 500 words long and should be written in a conversational tone. Please add a disclaimer section at the end of the post body, telling that this post is fully written by Chat GPT. Return the post as a JSON object with the title, content (in markdown), and tags with this format: { "title": "My Blog Post", "content": "This is my blog post.", "tags": [] }'
             },
         ]
     })
